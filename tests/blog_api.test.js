@@ -32,3 +32,24 @@ test('blog ids are not undefined', async () => {
   const ids = response.body.map((r) => r.id)
   ids.forEach((id) => expect(id).toBeDefined())
 })
+
+test('a valid blog can be added ', async () => {
+  const newBlog = {
+    title: 'Test blog',
+    author: 'Joku',
+    url: 'www.test.fi',
+    likes: 20,
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+
+  const titles = blogsAtEnd.map((n) => n.title)
+  expect(titles).toContain('Test blog')
+})
