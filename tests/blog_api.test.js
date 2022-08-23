@@ -25,3 +25,10 @@ test('correct amount of blogs are returned', async () => {
   const response = await api.get('/api/blogs')
   expect(response.body).toHaveLength(helper.initialBlogs.length)
 })
+
+test('blog ids are not undefined', async () => {
+  const response = await api.get('/api/blogs')
+
+  const ids = response.body.map((r) => r.id)
+  ids.forEach((id) => expect(id).toBeDefined())
+})
