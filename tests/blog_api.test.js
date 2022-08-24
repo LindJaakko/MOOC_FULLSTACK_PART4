@@ -63,3 +63,11 @@ test('blog without likes is defaulted to 0', async () => {
   const response = await api.post('/api/blogs').send(newBlog)
   expect(response.body.likes).toBe(0)
 })
+
+test('blog should have both title and url, otherwise 400 bad request', async () => {
+  const newBlog = {
+    author: 'Joku',
+    likes: 20,
+  }
+  await api.post('/api/blogs').send(newBlog).expect(400)
+})
