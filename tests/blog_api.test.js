@@ -71,3 +71,53 @@ test('blog should have both title and url, otherwise 400 bad request', async () 
   }
   await api.post('/api/blogs').send(newBlog).expect(400)
 })
+
+describe('deletion of a blog', () => {
+  test('succeeds with status code 204 if id is valid', async () => {
+    const newBlog = {
+      title: 'Test blog',
+      author: 'Joku',
+      url: 'www.test.fi',
+      likes: 20,
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+
+    const titles = blogsAtEnd.map((n) => n.title)
+    expect(titles).toContain('Test blog')
+  })
+})
+
+describe('update a blog in database', () => {
+  test('succeeds with status code 201 if id is valid', async () => {
+    const blogToUpdate = {
+      id: '5a422a851b54a676234d17f7',
+      title: 'React patterns',
+      author: 'Michael Chan',
+      url: 'https://reactpatterns.com/',
+      likes: 20,
+    }
+
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(blogToUpdate)
+      .expect(201)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    //console.log(blogsAtEnd)
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
+
+    expect(blogsAtEnd).toContainEqual(blogToUpdate)
+  })
+})
+
+afterAll(() => {
+  mongoose.connection.close()
+})
