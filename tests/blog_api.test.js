@@ -53,3 +53,13 @@ test('a valid blog can be added ', async () => {
   const titles = blogsAtEnd.map((n) => n.title)
   expect(titles).toContain('Test blog')
 })
+
+test('blog without likes is defaulted to 0', async () => {
+  const newBlog = {
+    title: 'Test blog',
+    author: 'Joku',
+    url: 'www.test.fi',
+  }
+  const response = await api.post('/api/blogs').send(newBlog)
+  expect(response.body.likes).toBe(0)
+})
