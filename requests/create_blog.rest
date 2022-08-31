@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+COntent-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaWQiOiI2MzBmOTQ1YmM5NmM0MjczZTBmYjEyNjEiLCJpYXQiOjE2NjE5NjU3NTcsImV4cCI6MTY2MTk2OTM1N30.e15iUmc33JHwkSFs8U6joWhhH0uENi871osn6VLMi9I
+
+{
+    "title": "TestBlog",
+    "author": "joku",
+    "url": "www.jotain.com",
+    "likes": 10
+}
