@@ -1,9 +1,8 @@
-POST http://localhost:3003/api/blogs
+POST http://localhost:3003/api/login
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikl6bWlya2ViYWIiLCJpZCI6IjYzMTA2Mzc2MWE2MzA4MjY4MGQ1OTJlYyIsImlhdCI6MTY2MjAxODQzNSwiZXhwIjoxNjYyMDIyMDM1fQ.u-IwDgI08v2RaMHe6cK9E39oHvlmUWP9Le4dBmd4G-I
+
 
 {
-    "title": "TestBlog2",
-    "author": "Jake",
-    "url": "www.test.fi"
+    "username": "TestUser",
+    "password": "jotain"
 }
