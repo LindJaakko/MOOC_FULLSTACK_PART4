@@ -10,8 +10,6 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
   const body = request.body
   const user = request.user
-  console.log(user)
-
   if (body.title === undefined && body.url === undefined) {
     response.status(400).end()
   }
