@@ -51,12 +51,13 @@ blogsRouter.delete(
 
 blogsRouter.put('/:id', async (request, response) => {
   const body = request.body
-
+  const user = body.user
   const blog = {
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes,
+    user: user._id,
   }
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
     new: true,
